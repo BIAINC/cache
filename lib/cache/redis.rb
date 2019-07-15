@@ -1,6 +1,12 @@
 module Cache::Redis
   def after_fork
-    @metal._client.reconnect
+    redis_version = Gem::Version.new(Redis::VERSION)
+    
+    if redis_version >= Gem::Version.new("4")
+      @metal._client.reconnect
+    else
+      @metal.client.reconnect
+    end
   end
   
   def _get(k)
