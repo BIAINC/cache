@@ -1,6 +1,6 @@
 module Cache::Redis
   def after_fork
-    @metal.client.reconnect
+    @metal._client.reconnect
   end
   
   def _get(k)
